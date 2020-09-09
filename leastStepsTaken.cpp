@@ -4,29 +4,35 @@ using namespace std;
 class Solution{
 public:
   int leastStepsTaken(int start, int end){
-    int step = 2, fibo = 1, prev = 1;
-    int d = end - start;
-    if (d == 1) return 1;
-    else {
+    for(int i = 0; i < c; ++i){
+      int count = 1;
+      int step = 0;
+      end++;
+      int d = end - start;
+
       while (d != 0){
-        int _ = prev;
-        prev = fibo;
-        fibo = fibo + _;
-        for (int i = 0; i < fibo; ++i){
+        for (int i = 0; i < 2; ++i){
+          //cout << step << " " << count << " " << d << endl;
           step++;
-          for (int j = 0; j < fibo; ++j){
-            d--;
-            if (d == 0) break;
+          if (d - count <= 0){
+            d = 0;
+            break;
           }
-          if (d == 0) break;
+          else d -= count;
         }
+        count++;
       }
     }
-    return step;
+  return step;
   }
 };
 
 int main(){
   Solution sl;
-  cout << sl.leastStepsTaken(1,22) << endl;
+  int c; cin >> c;
+  for(;c > 0; --c){
+    int start, end;
+    cin >> start >> end;
+    cout << sl.leastStepsTaken(start, end) << endl;
+  }
 }
