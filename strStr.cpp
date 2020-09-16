@@ -38,5 +38,5 @@ private:
 
 int main(){
   Solution sl;
-  cout << sl.strStr("aaaaa","bba") << endl;
+  cout << sl.kmp("aabaaabaaac", "aabaaac") << endl;
 }
