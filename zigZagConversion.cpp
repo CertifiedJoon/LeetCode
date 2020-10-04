@@ -6,6 +6,8 @@ public:
   string convert(string s, int numRows){
     string output = "";
     int n = s.size();
+    if (numRows == 1)
+      return s;
 
     vector<int> spacing;
     for (int i = numRows-1; i >= 1 ; --i)
