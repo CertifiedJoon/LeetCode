@@ -1,13 +1,17 @@
 class Solution:
     def myAtoi(self, s):
-        i= 0; res = 0; sign = 1
+        i= 0; res = 0; sign = 1; n = len(s)
         INT_MAX = pow(2,31) - 1
         INT_MIN = - pow(2,31)
-        while (s[i] == ' '):
-            i += 1
-        
-        if(s[i] == '-'):
-            sign  = -1
+
+        while (i < n and (s[i] == ' ' or s[i] == '+' or s[i] == '-')):
+            if s[i] == '-':
+                sign = -1
+                i += 1
+                break
+            elif s[i] == '+':
+                i += 1
+                break
             i += 1
         
         while (i < len(s) and ord(s[i]) >= 48 and ord(s[i]) <= 57):
@@ -23,4 +27,4 @@ class Solution:
             return res
 
 sl = Solution()
-print(sl.myAtoi("       2147483648   lajsflae"))
+print(sl.myAtoi(" "))
