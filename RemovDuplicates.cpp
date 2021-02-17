@@ -1,21 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
-class Solution{
+class Solution {
 public:
-  int removeDuplicates(vector<int> &nums){
-    size_t l = nums.size();
-    for(size_t i = 0; i < l; ++i){
-      if(nums.front() == nums.back() && nums.size() > 1){
-        nums.erase(nums.begin());
-      } else {
-        nums.push_back(nums.front());
-        nums.erase(nums.begin());
-      }
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty()) return 0;
+        
+        int i = 0;
+        for (int j = 0; j < nums.size(); j++){
+            if (nums[j] != nums[i]) {
+                i++;
+                nums[i] = nums[j]; 
+            }
+        }
+        return i + 1;
     }
-    return nums.size();
-  }
-  int removeDuplicates2(vector<int>& nums){
-	   nums.erase(unique(nums.begin() ,nums.end()),nums.end() );
-	   return nums.size() ;
-}
 };
