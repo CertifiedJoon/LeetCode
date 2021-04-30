@@ -9,13 +9,22 @@ class Solution:
         if not l and not r:
             result.append(''.join(soFar))
             return
-        if len(l) == len(r):
-            self.RecGenerateParenthesis(soFar + '(', l-1, r, result)
+        if l == r:
+            self.RecGenerateParenthesis(soFar + ['('], l-1, r, result)
         else:
-            if (len(l)):
-                self.RecGenerateParenthesis(soFar + '(', l - 1, r, result)
-            if (len(r)):
-                self.RecGenerateParenthesis(soFar + ')', l, r-1, result)
+            if (l):
+                self.RecGenerateParenthesis(soFar + ['('], l - 1, r, result)
+            if (r):
+                self.RecGenerateParenthesis(soFar + [')'], l, r-1, result)
+    def NoRecGenerateParenthesis(self, n):
+        result = []
+        soFar = []
+        l = r = n
+        while(True):
+            if not l and not r:
+                result.append(''.join(soFar))
+                l + 1 
 
-
-Solution().GenerateParenthesis(3)
+while(True):
+    i = int(input())
+    Solution().GenerateParenthesis(i)
