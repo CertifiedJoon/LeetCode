@@ -1,11 +1,15 @@
 class Solution:
-    def twoSum(self, nums: [int], target: int) -> [int]:
-        prevMap = {} #val: index
-
+    def twoSum(self, nums, target):
+        #nums = [2,7,11,15], target = 9
+        prev = {} # key: target-n, val: index
         for i, n in enumerate(nums):
-            diff = target - n
-            if diff in prevMap:
-                return[prevMap[diff], i]
-            prevMap[n] = i
+            if i == 0:
+                prev[target-n] = i
+            else:
+                if n in prev:
+                    return (prev[n], i)
+                else:
+                    prev[target-n] = i
+        raise Exception
 
-        return
+print(Solution().twoSum([3,2,4], 6))
