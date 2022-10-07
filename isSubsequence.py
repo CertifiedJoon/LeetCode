@@ -11,4 +11,4 @@ def isSubsequence(s,t):
             return False
     return True
 
-print(isSubsequence('axe', 'abcde'))
+print(isSubsequence('ace', 'abcde'))

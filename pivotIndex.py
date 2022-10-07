@@ -21,4 +21,16 @@ def pivotIndex(nums):
             pivot = i
     return pivot
 
-print(pivotIndex([1,7,3,6,5,6]))
+def pivotIndex2(nums):
+    """
+    Two pass algorithm. Much faster than the above stupid method
+    """
+    total = sum(nums)
+    left_sum = 0
+    for i, n in enumerate(nums):
+        if total - left_sum - n == left_sum:
+            return i
+        left_sum += n
+    return -1
+
+print(pivotIndex2([1,7,3,6,5,6]))
