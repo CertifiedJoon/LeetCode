@@ -1,6 +1,4 @@
 from collections import defaultdict
-
-
 def findAnagrams(self, s, p):
     """
     :type s: str
