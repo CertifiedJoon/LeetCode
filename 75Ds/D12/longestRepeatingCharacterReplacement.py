@@ -1,7 +1,9 @@
+import collections
+
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         l = 0
-        frequency = defaultdict(int)
+        frequency = collections.defaultdict(int)
         longest_len = largest_freq = 0
         for r in range(len(s)):
             frequency[s[r]] += 1
