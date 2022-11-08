@@ -1,34 +1,56 @@
-def backspaceCompareSpaceOptimized(s, t):
-    i = len(s) - 1; j = len(t) - 1
-    i_backspaces = j_backspaces = 0
+import unittest
+import time
+import random
+from collections import defaultdict
+import copy
 
-    while i >= 0 and j >= 0:
-        if s[i] == '#':
-            i_backspaces += 1
-            i -= 1
-        elif i_backspaces:
-            i_backspaces -= 1
-            i -= 1
-        if t[j] == '#':
-            j_backspaces += 1
-            j -= 1
-        elif j_backspaces:
-            j_backspaces -= 1
-            j -= 1
-
-        if i > -1 and j > -1 and s[i] != '#' and t[j] != '#' and not j_backspaces and not i_backspaces:
-            if s[i] != t[j]:
-                return False
-            else:
-                i -= 1
-                j -= 1
-
-        if i_backspaces < 0 or j_backspaces < 0:
+def is_sorted(nums):
+    prev = -1
+    for n in nums:
+        if n < prev:
             return False
+        prev = n 
+    return True
 
-    return i == -1 and j == -1
+def is_sorted_monte_carlo(nums):
+    for _ in range(100):
+        i, j = random.choices(range(len(nums)), k = 2)
+        i, j = max(i,j), min(i,j)
+        if nums[i] < nums[j]:
+            return False
+    return True
 
-print(backspaceCompareSpaceOptimized("ab#", "a"))
 
+class Test(unittest.TestCase):
+    test_cases = []
+    test_functions = [
+        is_sorted,
+        is_sorted_monte_carlo
+    ]
+    def test_sort(self):
+        for _ in range(40):
+            arr = random.choices(range(20000), k = 20000)
+            sorted_arr = sorted(arr)
+            self.test_cases.append((arr, False))
+            self.test_cases.append((sorted_arr, True))
+        
+        num_runs = 10
+        function_runtimes = defaultdict(float)
+        for _ in range(num_runs):
+            for arr, expected in self.test_cases:
+                copied = copy.deepcopy(arr)
+                for is_sort in self.test_functions:
+                    start = time.process_time()
+                    answer = is_sort(copied)
+                    assert(
+                        answer == expected
+                    ), f"{is_sort.__name__} failed at {arr}"
+                    function_runtimes[is_sort.__name__] += (
+                        time.process_time() - start
+                    ) * 1000
+        print(f"\n{num_runs} runs")
+        for function_name, runtime in function_runtimes.items():
+            print(f"{function_name:<20s}: {runtime:.1f}ms")
 
-# ("ab##", "a#b#")
+if __name__ == "__main__":
+    unittest.main()
