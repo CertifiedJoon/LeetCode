@@ -1,56 +1,41 @@
-import unittest
-import time
-import random
-from collections import defaultdict
-import copy
+def incExc1():
+    probabilities = [1/66, 1/66, 1/66, 1/66, 1/66, 1/66]
+    result = 1
+    
+    for i in range(len(probabilities)):
+        result -= probabilities[i]
+        print(result)
+        for j in range(i + 1, len(probabilities)):
+            result += probabilities[i] * probabilities[j]
+            for k in range(j + 1, len(probabilities)):
+                result -= probabilities[i] * probabilities[j] * probabilities[k]
+                for l in range(k + 1, len(probabilities)):
+                    result += probabilities[i] * probabilities[j] * probabilities[k] * probabilities[l]
+                    for m in range(l + 1, len(probabilities)):
+                        result -= probabilities[i] * probabilities[j] * probabilities[k] * probabilities[l] * probabilities[m]
+                        for n in range(m + 1, len(probabilities)):
+                            result += probabilities[i] * probabilities[j] * probabilities[k] * probabilities[l] * probabilities[m] * probabilities[n]
+    
+    return result
 
-def is_sorted(nums):
-    prev = -1
-    for n in nums:
-        if n < prev:
-            return False
-        prev = n 
-    return True
+def incExc2():
+    result = 1
+    
+    for i in range(6):
+        result -= 1/66
+        print(result)
+        for j in range(i + 1, 6):
+            result += 1/66 * 1/45
+            for k in range(j + 1, 6):
+                result -= 1/66 * 1/45 * 1/28
+                for l in range(k + 1, 6):
+                    result += 1/66 * 1/45 * 1/28 * 1/15
+                    for m in range(l + 1, 6):
+                        result -= 1/66 * 1/45 * 1/28 * 1/15 * 1/6
+                        for n in range(m + 1, 6):
+                            result += 1/66 * 1/45 * 1/28 * 1/15 * 1/6 * 1
+    
+    return result
 
-def is_sorted_monte_carlo(nums):
-    for _ in range(100):
-        i, j = random.choices(range(len(nums)), k = 2)
-        i, j = max(i,j), min(i,j)
-        if nums[i] < nums[j]:
-            return False
-    return True
-
-
-class Test(unittest.TestCase):
-    test_cases = []
-    test_functions = [
-        is_sorted,
-        is_sorted_monte_carlo
-    ]
-    def test_sort(self):
-        for _ in range(40):
-            arr = random.choices(range(20000), k = 20000)
-            sorted_arr = sorted(arr)
-            self.test_cases.append((arr, False))
-            self.test_cases.append((sorted_arr, True))
-        
-        num_runs = 10
-        function_runtimes = defaultdict(float)
-        for _ in range(num_runs):
-            for arr, expected in self.test_cases:
-                copied = copy.deepcopy(arr)
-                for is_sort in self.test_functions:
-                    start = time.process_time()
-                    answer = is_sort(copied)
-                    assert(
-                        answer == expected
-                    ), f"{is_sort.__name__} failed at {arr}"
-                    function_runtimes[is_sort.__name__] += (
-                        time.process_time() - start
-                    ) * 1000
-        print(f"\n{num_runs} runs")
-        for function_name, runtime in function_runtimes.items():
-            print(f"{function_name:<20s}: {runtime:.1f}ms")
-
-if __name__ == "__main__":
-    unittest.main()
+print(f'version 1: {incExc1()}\n')
+print(f'version 2: {incExc2()}')
