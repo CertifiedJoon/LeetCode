@@ -1,4 +1,10 @@
 class Solution:
+  def bitManipulationAddBinary(self, a: str, b: str):
+    x, y = int(a, 2), int(b, 2)
+    while y:
+      x, y = x ^ y, (x & y) << 1
+    return bin(x)[2:]
+
   def addBinary(self, a: str, b: str):
     i = len(a) - 1
     j = len(b) - 1
