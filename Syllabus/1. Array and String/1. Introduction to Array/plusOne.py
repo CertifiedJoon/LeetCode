@@ -10,3 +10,5 @@ class Solution:
       ret.append(number % 10)
       number = number // 10
     return reversed(ret)
+  
+print([_ for _ in Solution().plusOne([9,9,9,9])])

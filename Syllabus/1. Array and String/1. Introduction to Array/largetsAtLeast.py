@@ -10,3 +10,5 @@ class Solution:
           largest = -1
         second_largest = num
     return largest
+  
+print(Solution().largestAtLeast([3,6,1,0]))
