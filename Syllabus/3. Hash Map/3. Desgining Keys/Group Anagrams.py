@@ -20,3 +20,4 @@ def group_anagrams(strs: List[str]) -> List[List[str]]:
   return [_ for _ in groups.values()]
 
 print(group_anagrams(["eat","tea","tan","ate","nat","bat"]))
+
