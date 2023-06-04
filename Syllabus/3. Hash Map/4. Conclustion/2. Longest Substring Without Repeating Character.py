@@ -1,5 +1,5 @@
 def longest_uniq_subtring(s: str) -> int:
-  find = dict()
+  find = dict() # can be optimized with plain array, since just alnum
   longest_len = 0
   curr_len = 0
   for i, c in enumerate(s):
