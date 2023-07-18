@@ -30,3 +30,18 @@ class Solution:
     res = []
     traverse(root)
     return res
+
+def find_duplicate_subtrees(root):
+  id_from_triplet = dict()
+  duplicate_roots = []
+
+  def getId(root):
+    triplet = (getId(root.left), root.val, getId(root.right))
+    if triplet in id_from_triplet:
+      duplicate_roots.append(root)
+    else:
+      id_from_triplet[triplet] = len(id_from_triplet)
+    return id_from_triplet[triplet]
+  
+  getId(root)
+  return duplicate_roots
