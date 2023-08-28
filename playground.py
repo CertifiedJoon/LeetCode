@@ -1,97 +1,128 @@
-import copy
+class C:
+    @classmethod
+    def f(cls, arg1, arg2):
+        pass
 
 
-def bubble_sort(nums):
-  n = len(nums)
-  for i in range(n - 1):
-    for j in range(0, n - i - 1):
-      if nums[j] > nums[j + 1]:
-        nums[j], nums[j + 1] = nums[j + 1], nums[j]
-    print(nums)
+def f(a):
+    return a > 0
 
-def selection_sort(nums):
-  n = len(nums)
-  for i in range(n):
-    minIndex = i
-    for j in range(i, n):
-      if nums[j] < nums[minIndex]:
-        minIndex = j
-    nums[minIndex], nums[i] = nums[i], nums[minIndex]
-    print(nums)
 
-def insertion_sort(nums):
-  n = len(nums)
-  for i in range(0, n):
-    for j in range (i, 0, -1):
-      if nums[j] < nums[j - 1]:
-        nums[j], nums[j - 1] = nums[j - 1], nums[j]
-    print(nums)
+def f2(a, b):
+    return a > b
 
-def merge(arr, l, m, r):
-    n1 = m - l + 1
-    n2 = r - m
- 
-    # create temp arrays
-    L = [0] * (n1)
-    R = [0] * (n2)
- 
-    # Copy data to temp arrays L[] and R[]
-    for i in range(0, n1):
-        L[i] = arr[l + i]
- 
-    for j in range(0, n2):
-        R[j] = arr[m + 1 + j]
- 
-    # Merge the temp arrays back into arr[l..r]
-    i = 0     # Initial index of first subarray
-    j = 0     # Initial index of second subarray
-    k = l     # Initial index of merged subarray
- 
-    while i < n1 and j < n2:
-        if L[i] <= R[j]:
-            arr[k] = L[i]
-            i += 1
-        else:
-            arr[k] = R[j]
-            j += 1
-        k += 1
- 
-    # Copy the remaining elements of L[], if there
-    # are any
-    while i < n1:
-        arr[k] = L[i]
-        i += 1
-        k += 1
- 
-    # Copy the remaining elements of R[], if there
-    # are any
-    while j < n2:
-        arr[k] = R[j]
-        j += 1
-        k += 1
- 
-# l is for left index and r is right index of the
-# sub-array of arr to be sorted
- 
- 
-def mergeSort(arr, l, r):
-    if l < r:
- 
-        # Same as (l+r)//2, but avoids overflow for
-        # large l and h
-        m = l+(r-l)//2
- 
-        # Sort first and second halves
-        mergeSort(arr, l, m)
-        mergeSort(arr, m+1, r)
-        merge(arr, l, m, r)
-        print(arr)
 
-def heapify():
-  start = parent(len(self) - 1)
-  for j in range(start, -1, -1):
-     self._down_heap(j)
+nums = [12, 3, 4, 45, 2, -2]
+nums2 = [1, 2, 3, 4, 5]
+print(list(filter(f, nums)))
 
-nums = [276, 245, 210, 236, 280, 224, 255, 29, 226, 290, 214]
-mergeSort(nums, 0, len(nums) - 1)
+str_nums = ["+1.23", "   -1234\n", "1e-003", "-inf"]
+print([float(num) for num in str_nums])
 
+print([hex(num) for num in nums])
+
+print(int("0110", 2))
+
+
+def f2(a, b):
+    return a > b
+
+
+nums = [12, 3, 4, 45, 2, -2, 2]
+nums2 = [1, 2, 3, 4, 5]
+
+print(list(map(f2, nums, nums2)))
+
+with open("text.txt", encoding="utf-8") as f:
+    read_data = f.read()
+
+print(*[12, 3, 4, 45, 2, -2], sep=" ", end="\n")
+
+for num in reversed(nums):
+    print(num, end=" ")
+
+print("")
+
+print(nums.index(2, 5))
+
+
+del nums[:1]
+print(nums)
+del nums[1::2]
+print(nums)
+nums.clear()
+print(nums)
+nums.extend(nums2)
+print(nums)
+nums.insert(0, 0)
+print(nums)
+nums.remove(3)
+print(nums)
+nums.reverse()
+print(nums)
+
+
+nums.sort()
+
+
+strings = ["aaaa", "bbbbb", "ccccccc"]
+strings.sort(key=str.lower, reverse=True)
+print(strings)
+
+s = "joonyoung moon"
+print(s.capitalize())
+
+s = "joonyoung moon"
+print(s.count("oo"))
+
+sub = "oo"
+print(s.find(sub, 1, 5))
+print(s.isalnum())
+print(s.isalpha())
+print(s.isascii())
+print(s.isdecimal())
+print(s.isdigit())
+print(s.islower())
+print(s.isnumeric())
+print(s.isupper())
+print(s.lower())
+print(s.lstrip())
+print(s.removeprefix(sub))
+print(s.removesuffix(sub))
+print(s.replace("o", "0"))
+print(s.rfind("m"))
+print(s.split(" "))
+print(s.splitlines())
+print(s.strip("wcmowz."))
+
+set0 = {1, 2, 3}
+set1 = {1, 2, 3, 4, 5, 6}
+set12 = {5, 6, 7, 8}
+set2 = {7, 8, 9, 10, 11, 12}
+
+print(set1.isdisjoint(set2))
+print(set1.isdisjoint(set12))
+print(set1.issuperset(set0))
+print(set1.issubset(set12))
+print(set1.union(set12, set2))
+print(set1.intersection(set2))
+print(set1.difference(set12))
+print(set1.symmetric_difference(set12))
+print(set1.update(set0))
+print(set1.intersection_update(set12))
+print(set1.symmetric_difference_update(set12))
+print(set1.difference_update(set12))
+print(set1.discard(1))
+
+d = {"a": 1}
+d["b"] = 2
+d["c"] = 3
+
+e = {"d": 4}
+
+print(d.get("d", 0))
+print(d.pop("d", 0))
+print(d.popitem())
+d.update(e)
+print(d | e)
+d |= e
