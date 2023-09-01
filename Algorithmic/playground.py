@@ -1,44 +1,31 @@
-class Bucket:
-    def __init__(self):
-        self._maxima = 0
-        self._minima = 100000000
-        self._values = []
+from decimal import *
 
-    def get_minima(self):
-        return self._minima
-
-    def get_maxima(self):
-        return self._maxima
-
-    def add_val(self, val: int):
-        self._maxima = max(self._maxima, val)
-        self._minima = max(self._minima, val)
-        self._values.append(val)
-
-    def is_empty(self):
-        return not self._values
+getcontext().prec = 6
+getcontext().rounding = ROUND_HALF_UP
+nums = list(map(Decimal, "1 23 4 32 54345.99 234.00".split()))
+print(nums)
+print(max(nums), min(nums), sum(nums))
+print([num.exp() for num in nums])
+print([num.sqrt() for num in nums])
+print([num.ln() for num in nums])
+print([num.log10() for num in nums])
 
 
-def max_gap(nums):
-    maxima = max(nums)
-    minima = min(nums)
-    n = len(nums)
+import math
 
-    # Bucket Configuration and Init
-    bucket_size = (maxima - minima) // (n - 1)
-    bucket_count = (maxima - minima) // bucket_size
-    buckets = [Bucket() for _ in range(bucket_count)]
+print(math.comb(5, 2))
+print(math.perm(5, 2))
 
-    # bucket population
-    for num in nums:
-        buckets[(num - minima) // bucket_size].add_val(num)
+import heapq
 
-    max_gap = 0
-    previous_maxima = 0
+heapq.heapify(nums)
+print(nums)
+print(heapq.nlargest(3, nums))
 
-    for bucket in buckets:
-        if not bucket.is_empty():
-            max_gap = max(max_gap, bucket.get_minima() - previous_maxima)
-            previous_maxima = bucket.get_maxima()
+import re
 
-    return max_gap
+reg = r"[a-zA-Z0-9]*"
+print(re.search(reg, "adfsa-asdf"))
+print(re.fullmatch(reg, "adfasdfa15"))
+print(re.split(reg, "___jij___"))
+print(re.findall(reg, "adsfa@#$!asdfa"))
