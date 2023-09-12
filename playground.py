@@ -1,24 +1,6 @@
-n = 257
-n -= 1
+from decimal import *
 
-print(bin(n))
-n |= n >> 1
+getcontext().prec = 6
+getcontext().rounding = ROUND_HALF_UP
 
-print(bin(n))
-n |= n >> 2
-
-print(bin(n))
-n |= n >> 4
-
-print(bin(n))
-n |= n >> 8
-
-print(bin(n))
-n |= n >> 16
-
-print(bin(n))
-n |= n >> 32
-
-n += 1
-
-print(n)
+print(list(map(Decimal, "12 123 2432.33 .34".split())))
