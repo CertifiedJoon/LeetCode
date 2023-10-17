@@ -1,37 +1,36 @@
-from typing import *
-
 """
 Premise:
-1. given list of strs. group them by anagrams. 
+1. given daily temperature (list of int) return an array answer such that answer [i]
+is the number of days until warmer.
 
-Contstraints:
-1. all lowercase alphabets
+Constraints:
+1. 30 < temperatures[i] <= 100
 
-Plausible Solutions:
-1. bruteforce X
-2. count char and find anagrams X
-3. char counter string transformation (O)
+Plausible solutions:
+1. brute force X
+2. monotonic stack approach (O(n))
+3. top down approach (saves space at the expense of some runtime) (should be considered
+depending on the statistical distribution of the temperature)
 
 Logic:
-1. first create a counter (an array of len 26)
-2. count char for each str into counter
-3. string transform
-4. hash
+1. maintain monotonic stack 
+2. compare head of the stack with the current ith element
 """
 
-from collections import defaultdict
+from typing import *
 
 
-def group_anagrams(strs: List[str]):
-    anagram_map = defaultdict(list)
+def daily_temperatures(temperatures: List[int]):
+    res = [0 for _ in range(len(temperatures))]
+    days_waiting_for_warmer_day = [(temperatures[0], 0)]
 
-    for s in strs:
-        counter = [0 for _ in range(26)]
-        for c in s:
-            counter[ord(c) - 97] += 1
-        anagram_map["".join(str(i) for i in counter)].append(s)
+    for i, temp in enumerate(temperatures):
+        while days_waiting_for_warmer_day and days_waiting_for_warmer_day[-1][0] < temp:
+            _, pop_i = days_waiting_for_warmer_day.pop()
+            res[pop_i] = i - pop_i
+        days_waiting_for_warmer_day.append((temp, i))
 
-    return [anagram_group for anagram_group in anagram_map.values()]
+    return res
 
 
-print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+print(daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73]))
