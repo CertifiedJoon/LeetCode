@@ -1,36 +1,51 @@
-"""
-Premise:
-1. given daily temperature (list of int) return an array answer such that answer [i]
-is the number of days until warmer.
+class Node:
+    def __init__(self, letter):
+        self._letter = letter
+        self._children = dict()
 
-Constraints:
-1. 30 < temperatures[i] <= 100
+    def add_child(self, c):
+        node = Node(c)
+        self._children[c] = node
+        return node
 
-Plausible solutions:
-1. brute force X
-2. monotonic stack approach (O(n))
-3. top down approach (saves space at the expense of some runtime) (should be considered
-depending on the statistical distribution of the temperature)
+    def get_letter(self):
+        return self._letter
 
-Logic:
-1. maintain monotonic stack 
-2. compare head of the stack with the current ith element
-"""
+    def iter_children(self):
+        for child in self._children:
+            yield child
 
-from typing import *
+    def is_parent(self, letter):
+        return letter in self._children
 
-
-def daily_temperatures(temperatures: List[int]):
-    res = [0 for _ in range(len(temperatures))]
-    days_waiting_for_warmer_day = [(temperatures[0], 0)]
-
-    for i, temp in enumerate(temperatures):
-        while days_waiting_for_warmer_day and days_waiting_for_warmer_day[-1][0] < temp:
-            _, pop_i = days_waiting_for_warmer_day.pop()
-            res[pop_i] = i - pop_i
-        days_waiting_for_warmer_day.append((temp, i))
-
-    return res
+    def get_child(self, letter):
+        return self._children[letter]
 
 
-print(daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73]))
+class Trie:
+    def __init__(self, words):
+        self._root = Node("_")
+
+        for word in words:
+            curr = self._root
+            for c in word:
+                if curr.is_parent(c):
+                    curr = curr.get_child(c)
+                else:
+                    curr = curr.add_child(c)
+
+    def search(self, word):
+        curr = self._root
+        matched_chars = []
+
+        for c in word:
+            if curr.is_parent(c):
+                matched_chars.append(c)
+                curr = curr.get_child(c)
+
+        return "".join(matched_chars)
+
+
+if __name__ == "__main__":
+    trie = Trie(["mobile", "mouse", "moneypot", "monitor", "mousepad"])
+    print(trie.search("mouse"))
