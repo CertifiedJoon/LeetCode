@@ -44,10 +44,6 @@ int main(int argc, char *argv[]){
     braces[i] = braces[i-1];
     braces[i - 1] = temp;
 
-    for (bool b : braces) 
-      cout << (b ? ')' : '(');
-    cout << endl;
-
     if (check_valid(braces, stack_size))
       counter++;
   }
