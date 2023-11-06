@@ -1,47 +1,39 @@
 """
 Premise:
-1. Given an encoded string return its decoded string.
-2. encoding rule is k[encoded_string] = k * encoded string
-3. there can be a recursive structure.
+1. given integer, return the least number of perfect square numbers that sum to n.
 
+Constaints:
+1. 1 <= n <= 10^4
 
-Constraints:
-1. 1 <= s.length <= 30
-2. input alwasy valid.
-3. s are in the range [1, 300]
+first level
+12 -> [1, 4, 9] 
+
+second level
+11 -> [1, 4, 9]
+8 -> [1, 4]
+3 -> [1]
+
 """
 
+import math
 
-# Decode k[encoded string]
-def decode(encoded: str):
-    # destructure the encoded string into k and string word
-    k_stack = []
-    word_stack = []
-    result = []
 
-    # buffer to store the current word
-    word_buffer = []
+def squareSum(n: int):
+    # queue implemented in set to reduce redundancy
+    queue = set()
+    queue.add(n)
 
-    for c in encoded:
-        if c.isnumeric():
-            if word_buffer:
-                word_stack.append("".join(word_buffer))
-                word_buffer = []
-            k_stack.append(c)
-        elif c != "]" and c != "[":
-            word_buffer.append(c)
-        elif c == "]":
-            word = ""
-            if word_buffer:
-                word = "".join(word_buffer)
-            elif word_stack:
-                word = word_stack.pop()
+    level = 0
 
-            k = k_stack.pop()
+    while queue:
+        newQueue = set()
+        for elem in queue:
+            if elem == 0:
+                return level
+            for root in range(1, math.sqrt(elem)):
+                if elem - root**2 > 0:
+                    newQueue.add(elem - root**2)
+        queue = newQueue
+        level += 1
 
-            if word_stack:
-                word_stack[-1] = word_stack[-1] + k * word
-            else:
-                result.append(k * word)
-
-            word_buffer = []
+    raise RuntimeError("Error Square sum impossible.")
