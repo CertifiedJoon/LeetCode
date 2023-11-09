@@ -1,12 +1,13 @@
-from collections import defaultdict()
-from typing import List
+def reaching_point(sx, sy, tx, ty):
+    while tx > sx and ty > sy:
+        if tx < ty:
+            ty %= tx
+        else:
+            tx %= ty
+        if tx == sx and ty == sy:
+            return True
 
-def songPairs(time: List[int]) -> int:
-    song_counter = defaultdict(int)
-    result = 0
-    
-    for t in time:
-        result += song_counter[60 - t % 60 if t % 60 != 0 else 0]
-        song_counter[t % 60] += 1
-    
-    return result
+    return False
+
+
+print(reaching_point(1, 1, 3, 5))
