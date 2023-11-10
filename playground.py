@@ -1,13 +1,11 @@
 def reaching_point(sx, sy, tx, ty):
-    while tx > sx and ty > sy:
-        if tx < ty:
-            ty %= tx
-        else:
+    while tx > sx and ty > sx:
+        if tx > ty:
             tx %= ty
-        if tx == sx and ty == sy:
+        else:
+            ty %= tx
+
+        if (sx == tx) and (ty == tx):
             return True
 
     return False
-
-
-print(reaching_point(1, 1, 3, 5))
