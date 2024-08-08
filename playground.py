@@ -1,5 +1,5 @@
 def reaching_point(sx, sy, tx, ty):
-    while tx > sx and ty > sx:
+    while tx >= sx and ty >= sx:
         if tx > ty:
             tx %= ty
         else:
