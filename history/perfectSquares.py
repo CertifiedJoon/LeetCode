@@ -51,3 +51,26 @@ class Solution:
             queue = nextQueue
 
         return level
+
+    def numSquares2(self, n: int) -> int:
+        """
+        Premise.
+        . given an integer, return the least # of square numbers that sum to n
+
+        Constraint
+        . 1 <= n <= 10^4
+        """
+        if n < 4:
+            return n
+
+        leastNumSquares = [0 for _ in range(n + 1)]
+        for i in range(4):
+            leastNumSquares[i] = i
+
+        for i in range(4, n + 1):
+            minNumSquares = float("inf")
+            for root in range(1, int(i**0.5) + 1):
+                minNumSquares = min(leastNumSquares[i - root**2] + 1, minNumSquares)
+            leastNumSquares[i] = minNumSquares
+
+        return leastNumSquares[n]
